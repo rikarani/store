@@ -5,9 +5,9 @@ import { FC } from "react";
 import { Icon } from "@iconify-icon/react";
 import { useUser, useClerk } from "@clerk/nextjs";
 
-import { Skeleton } from "@nextui-org/skeleton";
-import { Avatar } from "@nextui-org/avatar";
 import { User } from "@nextui-org/user";
+import { Avatar } from "@nextui-org/avatar";
+import { Skeleton } from "@nextui-org/skeleton";
 import { Dropdown, DropdownTrigger, DropdownMenu, DropdownItem, DropdownSection } from "@nextui-org/dropdown";
 
 export const Profile: FC = () => {
