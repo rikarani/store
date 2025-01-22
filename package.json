@@ -4,12 +4,10 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "postinstall": "prisma generate",
     "dev": "next dev --turbopack",
-    "build": "next build",
+    "build": "prisma generate && prisma migrate deploy && next build",
     "start": "next start",
-    "lint": "next lint",
-    "migrate": "prisma migrate"
+    "lint": "next lint"
   },
   "dependencies": {
     "@clerk/elements": "^0.22.11",
