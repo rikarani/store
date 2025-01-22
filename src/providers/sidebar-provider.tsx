@@ -1,7 +1,7 @@
 "use client";
 
 import { FC, PropsWithChildren, createContext } from "react";
-import { useDisclosure } from "@nextui-org/react";
+import { useDisclosure } from "@heroui/react";
 
 type Context = {
   isOpen: boolean;

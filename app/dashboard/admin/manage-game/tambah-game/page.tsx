@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { FC, Suspense } from "react";
 
 import { PrismaClient } from "@prisma/client";
-import { Spinner } from "@nextui-org/spinner";
+import { Spinner } from "@heroui/spinner";
 import { Section } from "@/components/dashboard/section";
 import { AddGame } from "@/components/dashboard/manage-game/add-game";
 

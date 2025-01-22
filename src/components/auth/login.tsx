@@ -7,10 +7,10 @@ import * as Clerk from "@clerk/elements/common";
 import * as SignIn from "@clerk/elements/sign-in";
 import { AuthenticateWithRedirectCallback } from "@clerk/nextjs";
 
-import { Input } from "@nextui-org/input";
-import { Button } from "@nextui-org/button";
-import { Divider } from "@nextui-org/divider";
-import { Spinner } from "@nextui-org/spinner";
+import { Input } from "@heroui/input";
+import { Button } from "@heroui/button";
+import { Divider } from "@heroui/divider";
+import { Spinner } from "@heroui/spinner";
 
 import { Icon } from "@iconify-icon/react";
 import { useAutoAnimate } from "@formkit/auto-animate/react";

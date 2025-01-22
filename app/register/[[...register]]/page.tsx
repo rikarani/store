@@ -1,7 +1,7 @@
 import { FC } from "react";
 import type { Metadata } from "next";
 
-import { Spinner } from "@nextui-org/spinner";
+import { Spinner } from "@heroui/spinner";
 import { Register } from "@/components/auth/register";
 import { ClerkLoading, ClerkLoaded } from "@clerk/nextjs";
 

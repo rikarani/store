@@ -1,12 +1,12 @@
 "use client";
 
 import { FC, useContext } from "react";
-import { Drawer, DrawerContent, DrawerHeader, DrawerBody } from "@nextui-org/drawer";
+import { Drawer, DrawerContent, DrawerHeader, DrawerBody } from "@heroui/drawer";
 
-import { Button } from "@nextui-org/button";
+import { Button } from "@heroui/button";
 import { SidebarContext } from "@/providers/sidebar-provider";
-import { User } from "@nextui-org/user";
-import { Accordion, AccordionItem } from "@nextui-org/accordion";
+import { User } from "@heroui/user";
+import { Accordion, AccordionItem } from "@heroui/accordion";
 
 import Link from "next/link";
 
