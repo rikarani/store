@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 
 const Page: FC = () => {
   return (
-    <div className="mx-auto max-w-screen-lg px-6">
+    <div className="mx-auto max-w-screen-lg">
       <Section name="Manage Member">
         <h1>ini manage member</h1>
       </Section>
