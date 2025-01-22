@@ -8,15 +8,12 @@ datasource db {
 }
 
 model Game {
-  id String @id @default(uuid())
+  id          String  @id @default(uuid())
+  name        String  @db.VarChar(255)
+  code        String  @unique @db.VarChar(255)
+  description String? @db.Text
+  thumbnail   String? @db.VarChar(255)
+  banner      String? @db.VarChar(255)
 
-  field_id String
-  fields   Field[]
-}
-
-model Field {
-  id String @id @default(uuid())
-
-  game_id String
-  game    Game   @relation(fields: [game_id], references: [id])
+  @@map("games")
 }
