@@ -1,6 +1,6 @@
 "use server";
 
-import { revalidateTag } from "next/cache";
+import { revalidateTag, revalidatePath } from "next/cache";
 import { PrismaClient } from "@prisma/client";
 import { State } from "@/components/dashboard/manage-game/add-game";
 
@@ -19,6 +19,7 @@ export async function addGame(_previous: State | undefined, formData: FormData):
     });
 
     revalidateTag("game dari api");
+    revalidatePath("/dashboard/admin/manage-game");
 
     return {
       success: true,
