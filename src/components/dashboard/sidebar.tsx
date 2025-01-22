@@ -28,7 +28,7 @@ export const Sidebar: FC = () => {
         </DrawerHeader>
         <DrawerBody>
           <Accordion isCompact showDivider={false} defaultExpandedKeys={["general"]}>
-            <AccordionItem key="general" aria-label="General" title="General" classNames={{ content: "space-y-3" }}>
+            <AccordionItem key="general" aria-label="General" title="General">
               <Button as={Link} href="/dashboard/riwayat-transaksi" variant="ghost" className="w-full">
                 Riwayat Transaksi
               </Button>
@@ -40,8 +40,8 @@ export const Sidebar: FC = () => {
               </Button>
             </AccordionItem>
             <AccordionItem key="admin" aria-label="Admin" title="Admin">
-              <Button as={Link} href="/dashboard/admin/manage-user" variant="ghost" className="w-full">
-                Manage User
+              <Button as={Link} href="/dashboard/admin/manage-member" variant="ghost" className="w-full">
+                Manage Member
               </Button>
               <Button as={Link} href="/dashboard/admin/manage-game" variant="ghost" className="w-full">
                 Manage Game
