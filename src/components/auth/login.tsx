@@ -29,49 +29,26 @@ export const Login: FC = () => {
           <div className="py-3">
             <Divider />
           </div>
-          <div className="space-y-3">
-            <Clerk.Loading scope="provider:google">
-              {(loading) => (
-                <Clerk.Connection asChild name="google">
-                  <Button
-                    isLoading={loading}
-                    className="w-full"
-                    startContent={loading ? null : <Icon icon="flat-color-icons:google" width={24} />}
-                    variant="bordered"
-                  >
-                    Login Pake Google
-                  </Button>
-                </Clerk.Connection>
-              )}
-            </Clerk.Loading>
-            <Clerk.Loading scope="provider:facebook">
-              {(loading) => (
-                <Clerk.Connection asChild name="facebook">
-                  <Button
-                    isLoading={loading}
-                    className="w-full"
-                    startContent={loading ? null : <Icon icon="logos:facebook" width={24} />}
-                    variant="bordered"
-                  >
-                    Login Pake Fesbuk
-                  </Button>
-                </Clerk.Connection>
-              )}
-            </Clerk.Loading>
-            <Clerk.Loading scope="provider:github">
-              {(loading) => (
-                <Clerk.Connection asChild name="github">
-                  <Button
-                    isLoading={loading}
-                    className="w-full"
-                    startContent={loading ? null : <Icon icon="fe:github" width={24} />}
-                    variant="bordered"
-                  >
-                    Login Pake GitHub
-                  </Button>
-                </Clerk.Connection>
-              )}
-            </Clerk.Loading>
+          <div className="space-y-3 lg:flex lg:gap-3 lg:space-y-0">
+            <Clerk.Connection asChild name="google">
+              <Button
+                className="w-full"
+                startContent={<Icon icon="flat-color-icons:google" width={24} />}
+                variant="bordered"
+              >
+                Login Pake Google
+              </Button>
+            </Clerk.Connection>
+            <Clerk.Connection asChild name="facebook">
+              <Button className="w-full" startContent={<Icon icon="logos:facebook" width={24} />} variant="bordered">
+                Login Pake Fesbuk
+              </Button>
+            </Clerk.Connection>
+            <Clerk.Connection asChild name="github">
+              <Button className="w-full" startContent={<Icon icon="fe:github" width={24} />} variant="bordered">
+                Login Pake GitHub
+              </Button>
+            </Clerk.Connection>
           </div>
           <div className="flex items-center gap-4 py-3">
             <Divider className="flex-1" />
