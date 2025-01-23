@@ -6,12 +6,12 @@ import { Icon } from "@iconify-icon/react";
 import { addGame } from "@/actions/game/add";
 import type { Game as TGame } from "@prisma/client";
 
-import { Chip } from "@nextui-org/chip";
-import { Button } from "@nextui-org/button";
-import { Input, InputProps } from "@nextui-org/input";
-import { Pagination as BasePagination, PaginationProps as TProps } from "@nextui-org/pagination";
-import { Table, TableHeader, TableBody, TableRow, TableColumn, TableCell } from "@nextui-org/table";
-import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, useDisclosure } from "@nextui-org/modal";
+import { Chip } from "@heroui/chip";
+import { Button } from "@heroui/button";
+import { Input, InputProps } from "@heroui/input";
+import { Pagination as BasePagination, PaginationProps as TProps } from "@heroui/pagination";
+import { Table, TableHeader, TableBody, TableRow, TableColumn, TableCell } from "@heroui/table";
+import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, useDisclosure } from "@heroui/modal";
 
 import Link from "next/link";
 

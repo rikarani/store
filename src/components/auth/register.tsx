@@ -6,9 +6,9 @@ import Link from "next/link";
 import * as Clerk from "@clerk/elements/common";
 import * as SignUp from "@clerk/elements/sign-up";
 
-import { Input } from "@nextui-org/input";
-import { Button } from "@nextui-org/button";
-import { Divider } from "@nextui-org/divider";
+import { Input } from "@heroui/input";
+import { Button } from "@heroui/button";
+import { Divider } from "@heroui/divider";
 
 import { useAutoAnimate } from "@formkit/auto-animate/react";
 

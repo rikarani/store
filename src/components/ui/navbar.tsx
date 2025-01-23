@@ -7,8 +7,8 @@ import { Brand } from "@/components/icons";
 import { Profile } from "./profile";
 import { ThemeSwitcher } from "@/components/ui/theme-switcher";
 
-import { Button } from "@nextui-org/button";
-import { Navbar as Nav, NavbarBrand, NavbarContent, NavbarItem } from "@nextui-org/navbar";
+import { Button } from "@heroui/button";
+import { Navbar as Nav, NavbarBrand, NavbarContent, NavbarItem } from "@heroui/navbar";
 
 export const Navbar: FC = () => {
   return (
