@@ -122,7 +122,9 @@ export const Game: FC<Props> = ({ games }) => {
         <TableHeader>
           <TableColumn key="name">Nama Game</TableColumn>
           <TableColumn key="code">Kode Game</TableColumn>
-          <TableColumn key="action">Aksi</TableColumn>
+          <TableColumn align="center" key="action">
+            Aksi
+          </TableColumn>
         </TableHeader>
         <TableBody emptyContent="Tidak ada game">
           {paginatedGames.map((game) => (
