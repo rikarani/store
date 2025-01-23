@@ -6,7 +6,7 @@ import { Login } from "@/components/auth/login";
 import { ClerkLoading, ClerkLoaded } from "@clerk/nextjs";
 
 import Image from "next/image";
-import mika from "~/images/mika.webp";
+import sparkle from "~/images/sparkle.webp";
 
 export const metadata: Metadata = {
   title: "Login - Erika Store",
@@ -23,7 +23,7 @@ const Page: FC = () => {
       </ClerkLoading>
       <ClerkLoaded>
         <div className="h-36 w-full lg:h-full lg:w-2/5">
-          <Image src={mika} priority alt="Login Image" className="size-full object-cover object-right" />
+          <Image src={sparkle} priority alt="Login Image" className="size-full object-cover object-center" />
         </div>
         <div className="flex-1">
           <div className="size-full">
