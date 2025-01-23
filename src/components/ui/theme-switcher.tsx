@@ -5,8 +5,8 @@ import { FC, useState, useEffect } from "react";
 import { useTheme } from "next-themes";
 import { Icon } from "@iconify-icon/react";
 
-import { Switch } from "@nextui-org/switch";
-import { Skeleton } from "@nextui-org/skeleton";
+import { Switch } from "@heroui/switch";
+import { Skeleton } from "@heroui/skeleton";
 
 export const ThemeSwitcher: FC = () => {
   const [mounted, setMounted] = useState<boolean>(false);

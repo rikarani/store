@@ -5,10 +5,10 @@ import { FC } from "react";
 import { Icon } from "@iconify-icon/react";
 import { useUser, useClerk } from "@clerk/nextjs";
 
-import { Skeleton } from "@nextui-org/skeleton";
-import { Avatar } from "@nextui-org/avatar";
-import { User } from "@nextui-org/user";
-import { Dropdown, DropdownTrigger, DropdownMenu, DropdownItem, DropdownSection } from "@nextui-org/dropdown";
+import { Skeleton } from "@heroui/skeleton";
+import { Avatar } from "@heroui/avatar";
+import { User } from "@heroui/user";
+import { Dropdown, DropdownTrigger, DropdownMenu, DropdownItem, DropdownSection } from "@heroui/dropdown";
 
 export const Profile: FC = () => {
   const { signOut } = useClerk();

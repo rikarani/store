@@ -6,11 +6,11 @@ import { Icon } from "@iconify-icon/react";
 
 import type { Game as TGame } from "@prisma/client";
 
-import { Button } from "@nextui-org/button";
-import { Input, InputProps } from "@nextui-org/input";
-import { Table, TableHeader, TableBody, TableRow, TableColumn, TableCell } from "@nextui-org/table";
-import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, useDisclosure } from "@nextui-org/modal";
-import { Pagination as BasePagination, PaginationProps as BasePaginationProps } from "@nextui-org/pagination";
+import { Button } from "@heroui/button";
+import { Input, InputProps } from "@heroui/input";
+import { Table, TableHeader, TableBody, TableRow, TableColumn, TableCell } from "@heroui/table";
+import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, useDisclosure } from "@heroui/modal";
+import { Pagination as BasePagination, PaginationProps as BasePaginationProps } from "@heroui/pagination";
 
 import Link from "next/link";
 
@@ -122,7 +122,9 @@ export const Game: FC<Props> = ({ games }) => {
         <TableHeader>
           <TableColumn key="name">Nama Game</TableColumn>
           <TableColumn key="code">Kode Game</TableColumn>
-          <TableColumn key="action">Aksi</TableColumn>
+          <TableColumn align="center" key="action">
+            Aksi
+          </TableColumn>
         </TableHeader>
         <TableBody emptyContent="Tidak ada game">
           {paginatedGames.map((game) => (

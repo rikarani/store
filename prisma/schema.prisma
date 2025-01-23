@@ -12,8 +12,11 @@ model Game {
   name        String  @db.VarChar(255)
   code        String  @unique @db.VarChar(255)
   description String? @db.Text
-  thumbnail   String? @db.VarChar(255)
-  banner      String? @db.VarChar(255)
+  type        String  @default("normal") @db.VarChar(255)
+
+  // Images
+  thumbnail String? @db.VarChar(255)
+  banner    String? @db.VarChar(255)
 
   @@map("games")
 }

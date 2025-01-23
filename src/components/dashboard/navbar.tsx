@@ -6,8 +6,8 @@ import { usePathname } from "next/navigation";
 import { Icon } from "@iconify-icon/react";
 import { SidebarContext } from "@/providers/sidebar-provider";
 
-import { Button } from "@nextui-org/button";
-import { Breadcrumbs, BreadcrumbItem } from "@nextui-org/breadcrumbs";
+import { Button } from "@heroui/button";
+import { Breadcrumbs, BreadcrumbItem } from "@heroui/breadcrumbs";
 
 function normalizePathname(pathname: string) {
   const capitalize = (str: string) => str.charAt(0).toUpperCase() + str.slice(1);
