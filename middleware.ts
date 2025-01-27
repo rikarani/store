@@ -1,10 +1,10 @@
-import { NextResponse, type NextRequest } from "next/server";
-import { clerkMiddleware, createRouteMatcher, type ClerkMiddlewareAuth } from "@clerk/nextjs/server";
+import { NextResponse } from "next/server";
+import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
 
 // const authRoute = createRouteMatcher("/dashboard");
 const guestRoute = createRouteMatcher(["/login", "/register"]);
 
-export default clerkMiddleware(async (auth: ClerkMiddlewareAuth, request: NextRequest) => {
+export default clerkMiddleware(async (auth, request) => {
   const { userId } = await auth();
 
   // if (authRoute(request) && !userId) {
@@ -12,7 +12,7 @@ export default clerkMiddleware(async (auth: ClerkMiddlewareAuth, request: NextRe
   // }
 
   if (guestRoute(request) && userId) {
-    return NextResponse.redirect(new URL("/dashboard", request.url));
+    return NextResponse.redirect(new URL("/dashboard/riwayat-transaksi", request.url));
   }
 });
 
