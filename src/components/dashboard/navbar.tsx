@@ -1,39 +1,33 @@
 "use client";
 
 import { FC, useContext } from "react";
-import { usePathname } from "next/navigation";
 
 import { Icon } from "@iconify-icon/react";
 import { SidebarContext } from "@/providers/sidebar-provider";
 
 import { Button } from "@heroui/button";
-import { Breadcrumbs, BreadcrumbItem } from "@heroui/breadcrumbs";
+import { ThemeSwitcher } from "../ui/theme-switcher";
 
-function normalizePathname(pathname: string) {
-  const capitalize = (str: string) => str.charAt(0).toUpperCase() + str.slice(1);
+type Props = {
+  header: string;
+};
 
-  return pathname
-    .split("-")
-    .map((path) => capitalize(path))
-    .join(" ");
-}
-
-export const Navbar: FC = () => {
+export const Navbar: FC<Props> = ({ header }) => {
   const { onOpen } = useContext(SidebarContext);
-  const pathname = usePathname();
-
-  const path = pathname.split("/").filter((path) => path !== "");
 
   return (
-    <div className="mx-auto flex h-16 max-w-screen-lg items-center gap-4 px-6">
-      <Button isIconOnly variant="ghost" onPress={onOpen}>
-        <Icon icon="lucide:sidebar" className="text-base" />
-      </Button>
-      <Breadcrumbs maxItems={1} itemsBeforeCollapse={1} itemsAfterCollapse={1}>
-        {path.map((item) => (
-          <BreadcrumbItem key={item}>{normalizePathname(item)}</BreadcrumbItem>
-        ))}
-      </Breadcrumbs>
-    </div>
+    <header className="flex items-center gap-4 p-4">
+      <div className="block lg:hidden">
+        <Button isIconOnly variant="ghost" onPress={onOpen}>
+          <Icon icon="lucide:sidebar" className="text-base" />
+        </Button>
+      </div>
+      <div className="batas flex w-full items-center justify-between">
+        <div>
+          <span className="text-xl font-semibold">{header}</span>
+        </div>
+        <ThemeSwitcher />
+      </div>
+    </header>
   );
 };
