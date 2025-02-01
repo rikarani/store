@@ -1,13 +1,13 @@
 import { FC } from "react";
+import Link from "next/link";
+import Image from "next/image";
 
 import { PrismaClient } from "@prisma/client";
 
-import { Navbar } from "@/components/ui/navbar";
-import { Banner } from "@/components/ui/banner";
+import { Navbar } from "@/components/store/navbar";
+import { Banner } from "@/components/store/banner";
 
 import suisei from "~/images/suisei.webp";
-import Link from "next/link";
-import Image from "next/image";
 
 const prisma = new PrismaClient();
 

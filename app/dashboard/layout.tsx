@@ -1,17 +1,19 @@
 import { FC, PropsWithChildren } from "react";
 
-import { Navbar } from "@/components/dashboard/navbar";
-import { Sidebar } from "@/components/dashboard/sidebar";
+import { Divider } from "@heroui/divider";
 
+import { Sidebar } from "@/components/dashboard/sidebar";
 import { SidebarProvider } from "@/providers/sidebar-provider";
 
 const Page: FC<PropsWithChildren> = ({ children }) => {
   return (
     <SidebarProvider>
-      <Sidebar />
-      <div>
-        <Navbar />
-        {children}
+      <div className="flex h-dvh">
+        <div className="hidden w-1/5 lg:block">
+          <Sidebar />
+        </div>
+        <Divider orientation="vertical" />
+        <div className="w-full lg:w-4/5">{children}</div>
       </div>
     </SidebarProvider>
   );

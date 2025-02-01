@@ -3,7 +3,7 @@ import { FC, Suspense } from "react";
 
 import { PrismaClient } from "@prisma/client";
 import { Spinner } from "@heroui/spinner";
-import { Section } from "@/components/dashboard/section";
+import { DashboardSection } from "@/components/dashboard/dashboard-section";
 import { AddGame } from "@/components/dashboard/manage-game/add-game";
 
 export const metadata: Metadata = {
@@ -36,11 +36,11 @@ const Page: FC = async () => {
   const allGames = await hit.json();
 
   return (
-    <Section name="Tambah Game Baru">
+    <DashboardSection name="Tambah Game Baru">
       <Suspense fallback={<Loading />}>
         <AddGame label="Tambah Game Baru" gamesFromDB={games} gamesFromAPI={allGames?.data || []} />
       </Suspense>
-    </Section>
+    </DashboardSection>
   );
 };
 

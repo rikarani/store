@@ -3,7 +3,7 @@ import Link from "next/link";
 
 import { SignedOut, SignedIn, SignInButton } from "@clerk/nextjs";
 
-import { Brand } from "@/components/icons";
+import { Brand } from "@/icons";
 import { Profile } from "./profile";
 import { ThemeSwitcher } from "@/components/ui/theme-switcher";
 
