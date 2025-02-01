@@ -22,7 +22,7 @@ export const Navbar: FC<Props> = ({ header }) => {
           <Icon icon="lucide:sidebar" className="text-base" />
         </Button>
       </div>
-      <div className="batas flex w-full items-center justify-between">
+      <div className="flex w-full items-center justify-between">
         <div>
           <span className="text-xl font-semibold">{header}</span>
         </div>
