@@ -1,53 +1,36 @@
 "use client";
 
 import { FC, useContext } from "react";
+
+import { useResponsive } from "@/hooks/useResponsive";
+import { SidebarContext } from "@/providers/sidebar-provider";
+
+import { Divider } from "@heroui/divider";
 import { Drawer, DrawerContent, DrawerHeader, DrawerBody } from "@heroui/drawer";
 
-import { Button } from "@heroui/button";
-import { SidebarContext } from "@/providers/sidebar-provider";
-import { User } from "@heroui/user";
-import { Accordion, AccordionItem } from "@heroui/accordion";
-
-import Link from "next/link";
+import { SideMenuBrand, SideMenuUser, SideMenuNav } from "@/components/ui/side-menu";
 
 export const Sidebar: FC = () => {
+  const large = useResponsive("(min-width: 1024px)");
   const { isOpen, onOpenChange } = useContext(SidebarContext);
 
-  return (
+  return large ? (
+    <aside>
+      <SideMenuBrand />
+      <Divider />
+      <SideMenuUser />
+      <SideMenuNav />
+    </aside>
+  ) : (
     <Drawer isOpen={isOpen} radius="none" hideCloseButton placement="left" size="xs" onOpenChange={onOpenChange}>
       <DrawerContent>
-        <DrawerHeader>
-          <User
-            className="justify-start"
-            avatarProps={{
-              src: "https://i.pravatar.cc/150?u=a04258114e29026702d",
-            }}
-            description="Product Designer"
-            name="Jane Doe"
-          />
+        <DrawerHeader className="p-0">
+          <SideMenuBrand />
         </DrawerHeader>
-        <DrawerBody>
-          <Accordion isCompact showDivider={false} defaultExpandedKeys={["general"]}>
-            <AccordionItem key="general" aria-label="General" title="General">
-              <Button as={Link} href="/dashboard/riwayat-transaksi" variant="ghost" className="w-full">
-                Riwayat Transaksi
-              </Button>
-              <Button as={Link} href="/dashboard/akun-game" variant="ghost" className="w-full">
-                Manage Akun Game
-              </Button>
-              <Button as={Link} href="/dashboard/profile" variant="ghost" className="w-full">
-                Edit Profile
-              </Button>
-            </AccordionItem>
-            <AccordionItem key="admin" aria-label="Admin" title="Admin">
-              <Button as={Link} href="/dashboard/admin/manage-member" variant="ghost" className="w-full">
-                Manage Member
-              </Button>
-              <Button as={Link} href="/dashboard/admin/manage-game" variant="ghost" className="w-full">
-                Manage Game
-              </Button>
-            </AccordionItem>
-          </Accordion>
+        <Divider />
+        <DrawerBody className="gap-0 p-0">
+          <SideMenuUser />
+          <SideMenuNav />
         </DrawerBody>
       </DrawerContent>
     </Drawer>
