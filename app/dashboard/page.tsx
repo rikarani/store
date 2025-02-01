@@ -4,13 +4,13 @@ import type { Metadata } from "next";
 import { DashboardSection } from "@/components/dashboard/dashboard-section";
 
 export const metadata: Metadata = {
-  title: "Riwayat Transaksi - Erika Store",
+  title: "Dashboard - Erika Store",
   description: "buat ngeliat",
 };
 
 const Page: FC = () => {
   return (
-    <DashboardSection name="Riwayat Transaksi">
+    <DashboardSection name="Dashboard">
       <h1>wip</h1>
     </DashboardSection>
   );

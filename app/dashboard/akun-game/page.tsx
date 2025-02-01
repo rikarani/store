@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { FC } from "react";
 
-import { Section } from "@/components/dashboard/section";
+import { DashboardSection } from "@/components/dashboard/dashboard-section";
 
 export const metadata: Metadata = {
   title: "Akun Game - Erika Store",
@@ -10,9 +10,9 @@ export const metadata: Metadata = {
 
 const Page: FC = () => {
   return (
-    <Section name="Akun Game">
-      <h1>ini ntar tabelnya</h1>
-    </Section>
+    <DashboardSection name="Akun Game">
+      <h1>wip</h1>
+    </DashboardSection>
   );
 };
 
