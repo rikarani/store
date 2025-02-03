@@ -24,7 +24,7 @@ const SideMenuBrand: FC = () => {
     <div className="flex w-full justify-between p-4">
       <div className="flex items-center gap-4">
         <Brand />
-        <span>Erika Store</span>
+        <span className="text-lg font-semibold">Erika Store</span>
       </div>
       <ThemeSwitcher />
     </div>
