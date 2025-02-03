@@ -8,7 +8,7 @@ import { SidebarProvider } from "@/providers/sidebar-provider";
 const Page: FC<PropsWithChildren> = ({ children }) => {
   return (
     <SidebarProvider>
-      <div className="flex h-dvh">
+      <div className="flex h-auto">
         <div className="hidden w-1/5 lg:block">
           <Sidebar />
         </div>
