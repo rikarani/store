@@ -15,7 +15,7 @@ export const Sidebar: FC = () => {
   const { isOpen, onOpenChange } = useContext(SidebarContext);
 
   return large ? (
-    <aside>
+    <aside className="sticky top-0">
       <SideMenuBrand />
       <Divider />
       <SideMenuUser />
