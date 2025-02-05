@@ -22,10 +22,10 @@ type Navigation = {
 const SideMenuBrand: FC = () => {
   return (
     <div className="flex w-full justify-between p-4">
-      <div className="flex items-center gap-4">
+      <Link href="/" className="flex items-center gap-4">
         <Brand />
         <span className="text-lg font-semibold">Erika Store</span>
-      </div>
+      </Link>
       <ThemeSwitcher />
     </div>
   );
