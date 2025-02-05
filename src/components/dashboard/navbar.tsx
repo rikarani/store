@@ -15,7 +15,7 @@ export const Navbar: FC<Props> = ({ header }) => {
   const { onOpen } = useContext(SidebarContext);
 
   return (
-    <header className="sticky top-0 z-10 flex h-16 items-center gap-4 bg-black/50 px-4 backdrop-blur">
+    <header className="sticky top-0 z-10 flex h-16 items-center gap-4 bg-white/60 px-4 backdrop-blur dark:bg-black/60">
       <div className="block lg:hidden">
         <Button isIconOnly variant="ghost" onPress={onOpen}>
           <Icon icon="lucide:sidebar" className="text-base" />
