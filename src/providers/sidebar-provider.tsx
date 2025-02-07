@@ -1,22 +1,24 @@
 "use client";
 
-import { FC, PropsWithChildren, createContext } from "react";
-import { useDisclosure } from "@heroui/react";
+import { FC, PropsWithChildren, createContext, useState, useEffect } from "react";
+import { usePathname } from "next/navigation";
 
-type Context = {
-  isOpen: boolean;
-  onOpen: () => void;
-  onOpenChange: () => void;
-};
-
-export const SidebarContext = createContext<Context>({
+export const SidebarContext = createContext({
   isOpen: false,
   onOpen: () => {},
   onOpenChange: () => {},
 });
 
 export const SidebarProvider: FC<PropsWithChildren> = ({ children }) => {
-  const { isOpen, onOpen, onOpenChange } = useDisclosure();
+  const pathname = usePathname();
+  const [isOpen, setIsOpen] = useState(false);
+
+  useEffect(() => {
+    setIsOpen(false);
+  }, [pathname]);
+
+  const onOpen = () => setIsOpen(true);
+  const onOpenChange = () => setIsOpen((prev) => !prev);
 
   return <SidebarContext.Provider value={{ isOpen, onOpen, onOpenChange }}>{children}</SidebarContext.Provider>;
 };
