@@ -8,12 +8,11 @@ import type { Game as TGame } from "@prisma/client";
 
 import { Chip } from "@heroui/chip";
 import { Button } from "@heroui/button";
-import { Input, InputProps } from "@heroui/input";
-import { Pagination as BasePagination, PaginationProps as TProps } from "@heroui/pagination";
 import { Table, TableHeader, TableBody, TableRow, TableColumn, TableCell } from "@heroui/table";
 import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, useDisclosure } from "@heroui/modal";
 
-import Link from "next/link";
+import { Search } from "./search";
+import { Pagination } from "./pagination";
 
 type GameFromAPI = {
   id: number;
@@ -24,50 +23,6 @@ type Props = {
   label: string;
   gamesFromDB: TGame[];
   gamesFromAPI: GameFromAPI[];
-};
-
-type PaginationProps = TProps & {
-  totalGame: number;
-};
-
-const Search: FC<InputProps> = ({ value, onValueChange, onClear }) => {
-  return (
-    <div className="w-full items-center justify-between gap-4 space-y-4 lg:flex lg:space-y-0">
-      <Button
-        as={Link}
-        href="/dashboard/admin/manage-game"
-        className="w-full lg:w-auto"
-        color="primary"
-        startContent={<Icon icon="lucide:arrow-left" className="text-base" />}
-      >
-        Kembali
-      </Button>
-      <Input
-        isClearable
-        startContent={<Icon icon="lucide:search" className="text-base" />}
-        placeholder="cari game..."
-        value={value}
-        onValueChange={onValueChange}
-        onClear={onClear}
-      />
-    </div>
-  );
-};
-
-const Pagination: FC<PaginationProps> = ({ totalGame, page, total, onChange }) => {
-  return (
-    <div className="w-full items-center justify-between space-y-0.5 px-3 lg:flex lg:space-y-0">
-      <p className="text-sm font-medium text-gray-200">Total {totalGame} game</p>
-      <BasePagination
-        isCompact
-        size="sm"
-        page={page}
-        total={total}
-        onChange={onChange}
-        classNames={{ cursor: "rounded-full" }}
-      />
-    </div>
-  );
 };
 
 export type State = {
@@ -101,7 +56,7 @@ export const AddGame: FC<Props> = ({ gamesFromDB, gamesFromAPI, label }) => {
     return availableGames.filter((game) => game.name.toLowerCase().includes(search.toLowerCase()));
   }, [availableGames, search]);
 
-  const perPage = 5;
+  const perPage = 7;
   const totalPage = Math.ceil(filteredGames.length / perPage);
 
   const paginatedGames = useMemo(() => {
