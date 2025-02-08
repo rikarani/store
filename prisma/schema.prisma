@@ -12,11 +12,14 @@ model Game {
   name        String  @db.VarChar(255)
   code        String  @unique @db.VarChar(255)
   description String? @db.Text
-  type        String  @default("normal") @db.VarChar(255)
+  type        String  @default("game") @db.VarChar(255)
 
-  // Images
+  // Image
   thumbnail String? @db.VarChar(255)
   banner    String? @db.VarChar(255)
+
+  created_at DateTime @default(now()) @db.Timestamp(6)
+  updated_at DateTime @default(now()) @updatedAt @db.Timestamp(6)
 
   @@map("games")
 }
