@@ -1,78 +1,39 @@
 "use client";
 
-import { FC, useState, useMemo } from "react";
+import { FC, useState, useEffect, useMemo, useActionState } from "react";
 
 import { Icon } from "@iconify-icon/react";
-
 import type { Game as TGame } from "@prisma/client";
 
+import { Chip } from "@heroui/chip";
 import { Button } from "@heroui/button";
-import { Input, InputProps } from "@heroui/input";
 import { Table, TableHeader, TableBody, TableRow, TableColumn, TableCell } from "@heroui/table";
 import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, useDisclosure } from "@heroui/modal";
-import { Pagination as BasePagination, PaginationProps as BasePaginationProps } from "@heroui/pagination";
 
-import Link from "next/link";
+import { Search } from "./search";
+import { Pagination } from "./pagination";
+
+import type { MutateGameState } from "@/types";
+import { deleteGame } from "@/actions/game/delete";
 
 type Props = {
   games: TGame[];
 };
 
-type PaginationProps = BasePaginationProps & {
-  totalGame: number;
-};
-
-const Search: FC<InputProps> = ({ value, onValueChange, onClear }) => {
-  return (
-    <div className="w-full items-center justify-between gap-3 space-y-4 lg:flex lg:space-y-0">
-      <Input
-        isClearable
-        startContent={<Icon icon="lucide:search" className="text-base" />}
-        placeholder="cari game..."
-        value={value}
-        onValueChange={onValueChange}
-        onClear={onClear}
-      />
-      <Button
-        as={Link}
-        className="w-full lg:w-auto"
-        href="/dashboard/admin/manage-game/tambah-game"
-        startContent={<Icon icon="lucide:plus" className="text-base" />}
-        color="primary"
-      >
-        Tambah Game
-      </Button>
-    </div>
-  );
-};
-
-const Pagination: FC<PaginationProps> = ({ totalGame, page, total, onChange }) => {
-  return (
-    <div className="flex w-full items-center justify-between px-3">
-      <p className="text-sm font-medium text-gray-200">Total {totalGame} game</p>
-      <BasePagination
-        isCompact
-        showControls
-        page={page}
-        total={total}
-        onChange={onChange}
-        classNames={{ cursor: "rounded-full" }}
-      />
-    </div>
-  );
-};
-
-export type State = {
-  success: boolean;
-  message: string;
-};
-
 export const Game: FC<Props> = ({ games }) => {
   const [page, setPage] = useState<number>(1);
   const [search, setSearch] = useState<string>("");
-  const [toDelete, setToDelete] = useState<Partial<TGame> | undefined>(undefined);
+  const [game, setGame] = useState<TGame | undefined>(undefined);
+  const [state, action, pending] = useActionState<MutateGameState | undefined, FormData>(deleteGame, undefined);
 
   const { isOpen, onOpen, onOpenChange, onClose } = useDisclosure();
+
+  useEffect(() => {
+    if (state?.success) {
+      setPage(1);
+      onClose();
+    }
+  }, [state, onClose]);
 
   const filteredGames = useMemo(() => {
     if (!search) {
@@ -98,13 +59,13 @@ export const Game: FC<Props> = ({ games }) => {
   };
 
   const onPress = (game: TGame) => {
-    setToDelete({ name: game.name, code: game.code });
+    setGame(game);
     onOpen();
   };
 
   const handleModalClose = () => {
     onClose();
-    setToDelete(undefined);
+    setGame(undefined);
   };
 
   return (
@@ -122,15 +83,19 @@ export const Game: FC<Props> = ({ games }) => {
         <TableHeader>
           <TableColumn key="name">Nama Game</TableColumn>
           <TableColumn key="code">Kode Game</TableColumn>
-          <TableColumn align="center" key="action">
-            Aksi
-          </TableColumn>
+          <TableColumn key="type">Tipe</TableColumn>
+          <TableColumn key="action">Aksi</TableColumn>
         </TableHeader>
         <TableBody emptyContent="Tidak ada game">
           {paginatedGames.map((game) => (
             <TableRow key={game.id}>
               <TableCell key="name">{game.name}</TableCell>
               <TableCell key="code">{game.code}</TableCell>
+              <TableCell key="type">
+                <Chip className="capitalize" color={game.type === "game" ? "success" : "secondary"}>
+                  {game.type}
+                </Chip>
+              </TableCell>
               <TableCell key="action" className="space-y-3 lg:space-x-3 lg:space-y-0">
                 <Button isIconOnly color="warning">
                   <Icon icon="lucide:edit" className="text-base" />
@@ -143,18 +108,27 @@ export const Game: FC<Props> = ({ games }) => {
           ))}
         </TableBody>
       </Table>
-      <Modal placement="center" isOpen={isOpen} onOpenChange={onOpenChange} onClose={handleModalClose}>
+      <Modal
+        placement="center"
+        hideCloseButton
+        isOpen={isOpen}
+        isDismissable={!pending}
+        isKeyboardDismissDisabled={pending}
+        onOpenChange={onOpenChange}
+        onClose={handleModalClose}
+      >
         <ModalContent>
           {(close) => (
             <>
               <ModalHeader>Konfirmasi Hapus</ModalHeader>
-              <form>
-                <ModalBody>Apakah anda yakin ingin menghapus game {toDelete?.name}?</ModalBody>
+              <form action={action}>
+                <input type="hidden" readOnly name="id" value={game?.id || ""} />
+                <ModalBody>Yakin mau hapus game {game?.name}?</ModalBody>
                 <ModalFooter>
-                  <Button onPress={close} color="success">
+                  <Button type="button" isDisabled={pending} onPress={close} color="success">
                     Tidak
                   </Button>
-                  <Button onPress={close} color="danger">
+                  <Button type="submit" isLoading={pending} color="danger" variant="ghost">
                     Ya
                   </Button>
                 </ModalFooter>
