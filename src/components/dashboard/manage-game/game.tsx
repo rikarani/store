@@ -43,7 +43,7 @@ export const Game: FC<Props> = ({ games }) => {
     return games.filter((game) => game.name.toLowerCase().includes(search.toLowerCase()));
   }, [games, search]);
 
-  const perPage = 5;
+  const perPage = 7;
   const totalPage = Math.ceil(filteredGames.length / perPage);
 
   const paginatedGames = useMemo(() => {
