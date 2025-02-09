@@ -41,7 +41,6 @@ export const AddGame: FC<Props> = ({ gamesFromDB, gamesFromAPI, label }) => {
 
   useEffect(() => {
     if (state?.success) {
-      setSearch("");
       setPage(1);
       onClose();
     }
