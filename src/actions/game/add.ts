@@ -1,15 +1,15 @@
 "use server";
 
-import { revalidateTag, revalidatePath } from "next/cache";
 import { PrismaClient } from "@prisma/client";
+import { revalidateTag, revalidatePath } from "next/cache";
 import { State } from "@/components/dashboard/manage-game/add-game";
 
 const prisma = new PrismaClient();
 
-export async function addGame(_previous: State | undefined, formData: FormData): Promise<State | undefined> {
-  const name = formData.get("name");
-  const code = formData.get("code");
-  const thumbnail = formData.get("thumbnail");
+export async function addGame(_previous: State | undefined, payload: FormData): Promise<State | undefined> {
+  const name = payload.get("name");
+  const code = payload.get("code");
+  const thumbnail = payload.get("thumbnail");
 
   try {
     await prisma.game.create({
@@ -21,8 +21,9 @@ export async function addGame(_previous: State | undefined, formData: FormData):
     });
 
     revalidateTag("available games");
-    revalidatePath("/dashboard/admin/manage-game");
+
     revalidatePath("/");
+    revalidatePath("/dashboard/admin/manage-game");
 
     return {
       success: true,
