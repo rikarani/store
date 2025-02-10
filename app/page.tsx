@@ -22,7 +22,7 @@ const Index: FC = async () => {
       <div className="mx-auto max-w-screen-lg space-y-4 py-4 lg:flex lg:space-y-0">
         <div className="px-6">
           <h2 className="text-xl font-bold">Game Populer</h2>
-          <div className="mt-4 grid grid-cols-3 gap-4 sm:grid-cols-4 md:grid-cols-4">
+          <div className="mt-4 grid grid-cols-3 gap-4 sm:grid-cols-4">
             <Suspense fallback={<Spinner />}>
               <AllGame />
             </Suspense>
