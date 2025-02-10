@@ -22,6 +22,7 @@ export async function addGame(_previous: State | undefined, formData: FormData):
 
     revalidateTag("available games");
     revalidatePath("/dashboard/admin/manage-game");
+    revalidatePath("/");
 
     return {
       success: true,
