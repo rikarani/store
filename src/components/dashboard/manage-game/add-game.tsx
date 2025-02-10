@@ -17,6 +17,7 @@ import { Pagination } from "./pagination";
 type GameFromAPI = {
   id: number;
   active: boolean;
+  icon_url: string;
 } & Pick<TGame, "name" | "code">;
 
 type Props = {
@@ -40,7 +41,6 @@ export const AddGame: FC<Props> = ({ gamesFromDB, gamesFromAPI, label }) => {
 
   useEffect(() => {
     if (state?.success) {
-      setSearch("");
       setPage(1);
       onClose();
     }
@@ -72,7 +72,7 @@ export const AddGame: FC<Props> = ({ gamesFromDB, gamesFromAPI, label }) => {
   };
 
   const onPress = (game: GameFromAPI) => {
-    setToAdd({ name: game.name, code: game.code });
+    setToAdd({ name: game.name, code: game.code, icon_url: game.icon_url });
     onOpen();
   };
 
@@ -142,6 +142,7 @@ export const AddGame: FC<Props> = ({ gamesFromDB, gamesFromAPI, label }) => {
             <form action={action}>
               <input type="hidden" readOnly name="name" value={toAdd?.name || ""} />
               <input type="hidden" readOnly name="code" value={toAdd?.code || ""} />
+              <input type="hidden" readOnly name="thumbnail" value={toAdd?.icon_url || ""} />
               <ModalHeader>Konfirmasi Tambah</ModalHeader>
               <ModalBody>Yakin mau nambah game {toAdd?.name}?</ModalBody>
               <ModalFooter>

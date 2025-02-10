@@ -28,7 +28,7 @@ const Page: FC = async () => {
     },
     next: {
       revalidate: 3600,
-      tags: ["game dari api"],
+      tags: ["available games"],
     },
   });
 
