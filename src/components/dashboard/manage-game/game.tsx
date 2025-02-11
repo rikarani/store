@@ -16,6 +16,8 @@ import { Pagination } from "./pagination";
 import type { MutateGameState } from "@/types";
 import { deleteGame } from "@/actions/game/delete";
 
+import Link from "next/link";
+
 type Props = {
   games: TGame[];
 };
@@ -97,7 +99,7 @@ export const Game: FC<Props> = ({ games }) => {
                 </Chip>
               </TableCell>
               <TableCell key="action" className="space-y-3 lg:space-x-3 lg:space-y-0">
-                <Button isIconOnly color="warning">
+                <Button as={Link} href={`/dashboard/admin/manage-game/${game.id}`} isIconOnly color="warning">
                   <Icon icon="lucide:edit" className="text-base" />
                 </Button>
                 <Button onPress={() => onPress(game)} isIconOnly color="danger">
