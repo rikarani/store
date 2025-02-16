@@ -94,8 +94,8 @@ export const Game: FC<Props> = ({ games }) => {
               <TableCell key="name">{game.name}</TableCell>
               <TableCell key="code">{game.code}</TableCell>
               <TableCell key="type">
-                <Chip className="capitalize" color={game.type === "game" ? "success" : "secondary"}>
-                  {game.type}
+                <Chip className="capitalize" color={game.category === "game" ? "success" : "secondary"}>
+                  {game.category === "game" ? "Game" : "Lainnya"}
                 </Chip>
               </TableCell>
               <TableCell key="action" className="space-y-3 lg:space-x-3 lg:space-y-0">
