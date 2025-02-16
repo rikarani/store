@@ -10,6 +10,10 @@ const nextConfig: NextConfig = {
         protocol: "https",
         hostname: "tokowendigg.com",
       },
+      {
+        protocol: "https",
+        hostname: "cfsju5bff3.ufs.sh",
+      },
     ],
   },
 };
