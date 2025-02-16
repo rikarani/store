@@ -12,7 +12,7 @@ model Game {
   name        String  @db.VarChar(255)
   code        String  @unique @db.VarChar(255)
   description String? @db.Text
-  type        String  @default("game") @db.VarChar(255)
+  category    String  @default("game") @db.VarChar(255)
 
   // Image
   thumbnail String? @db.VarChar(255)
