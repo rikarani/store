@@ -10,7 +10,7 @@ const prisma = new PrismaClient();
 export const OtherGame: FC = async () => {
   const games = await prisma.game.findMany({
     where: {
-      type: {
+      category: {
         equals: "other",
       },
     },
