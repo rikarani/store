@@ -3,7 +3,7 @@
 import { FC, PropsWithChildren } from "react";
 import { ThemeProvider } from "next-themes";
 import { useRouter } from "next/navigation";
-import { HeroUIProvider } from "@heroui/react";
+import { HeroUIProvider, ToastProvider } from "@heroui/react";
 
 export const Provider: FC<PropsWithChildren> = ({ children }) => {
   const router = useRouter();
@@ -11,6 +11,7 @@ export const Provider: FC<PropsWithChildren> = ({ children }) => {
   return (
     <HeroUIProvider navigate={router.push}>
       <ThemeProvider attribute="class" defaultTheme="dark">
+        <ToastProvider />
         {children}
       </ThemeProvider>
     </HeroUIProvider>
