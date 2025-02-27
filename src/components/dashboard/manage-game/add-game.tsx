@@ -1,60 +1,39 @@
 "use client";
 
-import { FC, useState, useMemo, useActionState, useEffect } from "react";
+import { FC, useState, useMemo } from "react";
 
 import { Icon } from "@iconify-icon/react";
 import { addGame } from "@/actions/game/add";
-import type { Game as TGame } from "@prisma/client";
+import type { GameFromAPI } from "@/types/game";
 
 import { Chip } from "@heroui/chip";
 import { Button } from "@heroui/button";
+import { addToast } from "@heroui/toast";
 import { Table, TableHeader, TableBody, TableRow, TableColumn, TableCell } from "@heroui/table";
 import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, useDisclosure } from "@heroui/modal";
 
 import { Search } from "./search";
 import { Pagination } from "./pagination";
 
-type GameFromAPI = {
-  id: number;
-  active: boolean;
-  icon_url: string;
-} & Pick<TGame, "name" | "code">;
-
 type Props = {
-  label: string;
-  gamesFromDB: TGame[];
-  gamesFromAPI: GameFromAPI[];
+  games: GameFromAPI[];
 };
 
-export type State = {
-  success: boolean;
-  message: string;
-};
-
-export const AddGame: FC<Props> = ({ gamesFromDB, gamesFromAPI, label }) => {
+export const AddGame: FC<Props> = ({ games }) => {
   const [page, setPage] = useState<number>(1);
   const [search, setSearch] = useState<string>("");
-  const [toAdd, setToAdd] = useState<Partial<GameFromAPI> | undefined>(undefined);
-  const [state, action, pending] = useActionState<State | undefined, FormData>(addGame, undefined);
+  const [pending, setPending] = useState<boolean>(false);
+  const [game, setGame] = useState<Partial<GameFromAPI> | undefined>(undefined);
 
   const { isOpen, onOpen, onOpenChange, onClose } = useDisclosure();
 
-  useEffect(() => {
-    if (state?.success) {
-      setPage(1);
-      onClose();
-    }
-  }, [state, onClose]);
-
-  const availableGames = gamesFromAPI.filter((game) => !gamesFromDB.find((g) => g.code === game.code));
-
   const filteredGames = useMemo(() => {
     if (!search) {
-      return availableGames;
+      return games;
     }
 
-    return availableGames.filter((game) => game.name.toLowerCase().includes(search.toLowerCase()));
-  }, [availableGames, search]);
+    return games.filter((game) => game.name.toLowerCase().includes(search.toLowerCase()));
+  }, [search, games]);
 
   const perPage = 7;
   const totalPage = Math.ceil(filteredGames.length / perPage);
@@ -66,25 +45,36 @@ export const AddGame: FC<Props> = ({ gamesFromDB, gamesFromAPI, label }) => {
     return filteredGames.slice(start, end);
   }, [filteredGames, page]);
 
-  const onSearch = (value: string) => {
+  function onSearch(value: string) {
     setSearch(value);
     setPage(1);
-  };
+  }
 
-  const onPress = (game: GameFromAPI) => {
-    setToAdd({ name: game.name, code: game.code, icon_url: game.icon_url });
+  function onPress(game: GameFromAPI) {
+    setGame(game);
     onOpen();
-  };
+  }
 
-  const handleModalClose = () => {
-    onClose();
-    setToAdd(undefined);
-  };
+  async function tambah(game: Partial<GameFromAPI>) {
+    setPending(true);
+
+    const response = await addGame(game);
+
+    if (response.success) {
+      setPending(false);
+      addToast({ title: "Berhasil", description: response.message, color: "success" });
+      onClose();
+    } else {
+      setPending(false);
+      addToast({ title: "Gagal", description: response.message, color: "danger" });
+      onClose();
+    }
+  }
 
   return (
     <>
       <Table
-        aria-label={label}
+        aria-label="Tabel Tambah Game"
         topContentPlacement="outside"
         topContent={<Search value={search} onValueChange={(value) => onSearch(value)} onClear={() => setPage(1)} />}
         bottomContent={
@@ -135,25 +125,21 @@ export const AddGame: FC<Props> = ({ gamesFromDB, gamesFromAPI, label }) => {
         isDismissable={!pending}
         isKeyboardDismissDisabled={pending}
         onOpenChange={onOpenChange}
-        onClose={handleModalClose}
       >
         <ModalContent>
           {(close) => (
-            <form action={action}>
-              <input type="hidden" readOnly name="name" value={toAdd?.name || ""} />
-              <input type="hidden" readOnly name="code" value={toAdd?.code || ""} />
-              <input type="hidden" readOnly name="thumbnail" value={toAdd?.icon_url || ""} />
+            <>
               <ModalHeader>Konfirmasi Tambah</ModalHeader>
-              <ModalBody>Yakin mau nambah game {toAdd?.name}?</ModalBody>
+              <ModalBody>Yakin mau nambah game {game?.name}?</ModalBody>
               <ModalFooter>
                 <Button onPress={close} isDisabled={pending} color="danger" variant="ghost">
                   Tidak
                 </Button>
-                <Button isLoading={pending} type="submit" color="success">
+                <Button isLoading={pending} type="submit" color="success" onPress={() => tambah(game as GameFromAPI)}>
                   Ya
                 </Button>
               </ModalFooter>
-            </form>
+            </>
           )}
         </ModalContent>
       </Modal>
