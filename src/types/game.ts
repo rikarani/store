@@ -1,6 +1,6 @@
 import type { Game } from "@prisma/client";
 
-type MutateGameState = {
+type Response = {
   success: boolean;
   message: string;
 };
@@ -10,4 +10,4 @@ type GameFromAPI = Pick<Game, "name" | "code"> & {
   icon_url: string;
 };
 
-export type { MutateGameState, GameFromAPI };
+export type { Response, GameFromAPI };
