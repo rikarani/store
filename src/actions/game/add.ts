@@ -1,40 +1,38 @@
 "use server";
 
+import { MutateGameState as State } from "@/types";
 import { PrismaClient } from "@prisma/client";
 import { revalidateTag, revalidatePath } from "next/cache";
-import { State } from "@/components/dashboard/manage-game/add-game";
+
+import type { GameFromAPI } from "@/types/game";
 
 const prisma = new PrismaClient();
 
-export async function addGame(_previous: State | undefined, payload: FormData): Promise<State | undefined> {
-  const name = payload.get("name");
-  const code = payload.get("code");
-  const thumbnail = payload.get("thumbnail");
-
+export async function addGame(game: Partial<GameFromAPI>): Promise<State> {
   try {
     await prisma.game.create({
       data: {
-        name: name as string,
-        code: code as string,
-        thumbnail: thumbnail as string,
+        name: game?.name as string,
+        code: game?.code as string,
+        thumbnail: game?.icon_url as string,
       },
     });
-
-    revalidateTag("available games");
-
-    revalidatePath("/");
-    revalidatePath("/dashboard/admin/manage-game");
-
-    return {
-      success: true,
-      message: "Game berhasil ditambahkan",
-    };
   } catch (e) {
     const error = e as Error;
 
     return {
       success: false,
-      message: error.message,
+      message: `Gagal Menambahkan Game : ${error.message}`,
     };
   }
+
+  revalidateTag("available game");
+
+  revalidatePath("/");
+  revalidatePath("/dashboard/admin/manage-game");
+
+  return {
+    success: true,
+    message: "Game Berhasil Ditambahkan",
+  };
 }
