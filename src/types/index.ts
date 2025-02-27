@@ -1,1 +1,1 @@
-export type { Response, GameFromAPI } from "./game";
+export type { Response, GameFromAPI, EnhancedGame } from "./game";

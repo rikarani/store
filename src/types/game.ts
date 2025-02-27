@@ -1,4 +1,4 @@
-import type { Game } from "@prisma/client";
+import type { Game, Field, Server } from "@prisma/client";
 
 type Response = {
   success: boolean;
@@ -10,4 +10,9 @@ type GameFromAPI = Pick<Game, "name" | "code"> & {
   icon_url: string;
 };
 
-export type { Response, GameFromAPI };
+type EnhancedGame = Game & {
+  fields: Field[];
+  servers: Server[];
+};
+
+export type { Response, GameFromAPI, EnhancedGame };
