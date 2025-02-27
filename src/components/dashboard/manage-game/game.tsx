@@ -8,7 +8,7 @@ import { type Game as TGame } from "@prisma/client";
 
 import { Chip } from "@heroui/chip";
 import { Button } from "@heroui/button";
-import { addToast, ToastProps } from "@heroui/toast";
+import { addToast } from "@heroui/toast";
 import { Table, TableHeader, TableBody, TableRow, TableColumn, TableCell } from "@heroui/table";
 import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, useDisclosure } from "@heroui/modal";
 
@@ -57,10 +57,6 @@ export const Game: FC<Props> = ({ games }) => {
     onOpen();
   }
 
-  function renderToast({ ...props }: Partial<ToastProps>) {
-    addToast({ timeout: 4000, ...props });
-  }
-
   async function hapus(id: string) {
     setPending(true);
 
@@ -68,11 +64,11 @@ export const Game: FC<Props> = ({ games }) => {
 
     if (response.success) {
       setPending(false);
-      renderToast({ title: "Berhasil", description: response.message, color: "success" });
+      addToast({ title: "Berhasil", description: response.message, color: "success" });
       onClose();
     } else {
       setPending(false);
-      renderToast({ title: "Gagal", description: response.message, color: "danger" });
+      addToast({ title: "Gagal", description: response.message, color: "danger" });
       onClose();
     }
   }
