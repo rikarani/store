@@ -11,7 +11,7 @@ export const Provider: FC<PropsWithChildren> = ({ children }) => {
   return (
     <HeroUIProvider navigate={router.push}>
       <ThemeProvider attribute="class" defaultTheme="dark">
-        <ToastProvider />
+        <ToastProvider toastProps={{ timeout: 4000, shouldShowTimeoutProgess: true }} />
         {children}
       </ThemeProvider>
     </HeroUIProvider>
