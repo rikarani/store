@@ -3,26 +3,25 @@
 import { FC } from "react";
 
 import { Icon } from "@iconify-icon/react";
-import { useUser, useClerk } from "@clerk/nextjs";
+import { useClerk } from "@clerk/nextjs";
+import { UserResource } from "@clerk/types";
 
-import { Skeleton } from "@heroui/skeleton";
 import { Avatar } from "@heroui/avatar";
 import { User } from "@heroui/user";
 import { Dropdown, DropdownTrigger, DropdownMenu, DropdownItem, DropdownSection } from "@heroui/dropdown";
 
-export const Profile: FC = () => {
+type Props = {
+  user: UserResource | null | undefined;
+};
+
+export const Profile: FC<Props> = ({ user }) => {
   const { signOut } = useClerk();
-  const { isLoaded, user } = useUser();
 
   return (
     <Dropdown placement="bottom-end" backdrop="opaque">
-      {isLoaded ? (
-        <DropdownTrigger>
-          <Avatar src={user?.imageUrl} as="button" size="sm" />
-        </DropdownTrigger>
-      ) : (
-        <Skeleton className="size-8 rounded-full" />
-      )}
+      <DropdownTrigger>
+        <Avatar src={user?.imageUrl} as="button" size="sm" />
+      </DropdownTrigger>
       <DropdownMenu variant="flat">
         <DropdownItem
           textValue="Profile"

@@ -10,7 +10,7 @@ import { Divider } from "@heroui/divider";
 
 import suisei from "~/images/suisei.webp";
 
-const Index: FC = async () => {
+const Index: FC = () => {
   return (
     <>
       <Navbar />

@@ -7,12 +7,18 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum FieldType {
+  text
+  dropdown
+}
+
 model Game {
   id          String  @id @default(uuid())
   name        String  @db.VarChar(255)
   code        String  @unique @db.VarChar(255)
   description String? @db.Text
-  type        String  @default("game") @db.VarChar(255)
+  category    String  @default("game") @db.VarChar(255)
+  has_server  Boolean @default(false)
 
   // Image
   thumbnail String? @db.VarChar(255)
@@ -21,5 +27,31 @@ model Game {
   created_at DateTime @default(now()) @db.Timestamp(6)
   updated_at DateTime @default(now()) @updatedAt @db.Timestamp(6)
 
+  fields  Field[]
+  servers Server[]
+
   @@map("games")
+}
+
+model Field {
+  id      String    @id @default(uuid())
+  game_id String
+  name    String
+  label   String
+  type    FieldType
+
+  game Game @relation(fields: [game_id], references: [id], onDelete: Cascade)
+
+  @@map("fields")
+}
+
+model Server {
+  id      String @id @default(uuid())
+  game_id String
+  key     String
+  value   String
+
+  game Game @relation(fields: [game_id], references: [id], onDelete: Cascade)
+
+  @@map("servers")
 }
