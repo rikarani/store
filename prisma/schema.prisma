@@ -19,6 +19,7 @@ model Game {
   description String? @db.Text
   category    String  @default("game") @db.VarChar(255)
   has_server  Boolean @default(false)
+  has_account Boolean @default(true)
 
   // Image
   thumbnail String? @db.VarChar(255)
