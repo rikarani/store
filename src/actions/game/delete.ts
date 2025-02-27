@@ -1,12 +1,12 @@
 "use server";
 
-import { MutateGameState as State } from "@/types";
+import { Response } from "@/types";
 import { PrismaClient } from "@prisma/client";
 import { revalidatePath, revalidateTag } from "next/cache";
 
 const prisma = new PrismaClient();
 
-export async function deleteGame(id: string): Promise<State> {
+export async function deleteGame(id: string): Promise<Response> {
   try {
     await prisma.game.delete({
       where: { id },

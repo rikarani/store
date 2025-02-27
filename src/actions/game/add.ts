@@ -1,6 +1,6 @@
 "use server";
 
-import { MutateGameState as State } from "@/types";
+import { Response } from "@/types";
 import { PrismaClient } from "@prisma/client";
 import { revalidateTag, revalidatePath } from "next/cache";
 
@@ -8,7 +8,7 @@ import type { GameFromAPI } from "@/types/game";
 
 const prisma = new PrismaClient();
 
-export async function addGame(game: Partial<GameFromAPI>): Promise<State> {
+export async function addGame(game: Partial<GameFromAPI>): Promise<Response> {
   try {
     await prisma.game.create({
       data: {
