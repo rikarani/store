@@ -1,20 +1,19 @@
 "use client";
 
-import { FC, useState, useEffect, useMemo, useActionState } from "react";
+import { FC, useState, useMemo } from "react";
 
 import { Icon } from "@iconify-icon/react";
-import type { Game as TGame } from "@prisma/client";
+import { deleteGame } from "@/actions/game/delete";
+import { type Game as TGame } from "@prisma/client";
 
 import { Chip } from "@heroui/chip";
 import { Button } from "@heroui/button";
+import { addToast, ToastProps } from "@heroui/toast";
 import { Table, TableHeader, TableBody, TableRow, TableColumn, TableCell } from "@heroui/table";
 import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, useDisclosure } from "@heroui/modal";
 
 import { Search } from "./search";
 import { Pagination } from "./pagination";
-
-import type { MutateGameState } from "@/types";
-import { deleteGame } from "@/actions/game/delete";
 
 import Link from "next/link";
 
@@ -26,16 +25,9 @@ export const Game: FC<Props> = ({ games }) => {
   const [page, setPage] = useState<number>(1);
   const [search, setSearch] = useState<string>("");
   const [game, setGame] = useState<TGame | undefined>(undefined);
-  const [state, action, pending] = useActionState<MutateGameState | undefined, FormData>(deleteGame, undefined);
+  const [pending, setPending] = useState<boolean>(false);
 
   const { isOpen, onOpen, onOpenChange, onClose } = useDisclosure();
-
-  useEffect(() => {
-    if (state?.success) {
-      setPage(1);
-      onClose();
-    }
-  }, [state, onClose]);
 
   const filteredGames = useMemo(() => {
     if (!search) {
@@ -55,25 +47,40 @@ export const Game: FC<Props> = ({ games }) => {
     return filteredGames.slice(start, end);
   }, [filteredGames, page]);
 
-  const onSearch = (value: string) => {
+  function onSearch(value: string) {
     setSearch(value);
     setPage(1);
-  };
+  }
 
-  const onPress = (game: TGame) => {
+  function onPress(game: TGame) {
     setGame(game);
     onOpen();
-  };
+  }
 
-  const handleModalClose = () => {
-    onClose();
-    setGame(undefined);
-  };
+  function renderToast({ ...props }: Partial<ToastProps>) {
+    addToast({ timeout: 4000, ...props });
+  }
+
+  async function hapus(id: string) {
+    setPending(true);
+
+    const response = await deleteGame(id);
+
+    if (response.success) {
+      setPending(false);
+      renderToast({ title: "Berhasil", description: response.message, color: "success" });
+      onClose();
+    } else {
+      setPending(false);
+      renderToast({ title: "Gagal", description: response.message, color: "danger" });
+      onClose();
+    }
+  }
 
   return (
     <>
       <Table
-        aria-label="Tabel Game dari DB"
+        aria-label="Tabel Game"
         topContentPlacement="outside"
         topContent={<Search value={search} onValueChange={(value) => onSearch(value)} onClear={() => setPage(1)} />}
         bottomContent={
@@ -117,24 +124,26 @@ export const Game: FC<Props> = ({ games }) => {
         isDismissable={!pending}
         isKeyboardDismissDisabled={pending}
         onOpenChange={onOpenChange}
-        onClose={handleModalClose}
       >
         <ModalContent>
           {(close) => (
             <>
               <ModalHeader>Konfirmasi Hapus</ModalHeader>
-              <form action={action}>
-                <input type="hidden" readOnly name="id" value={game?.id || ""} />
-                <ModalBody>Yakin mau hapus game {game?.name}?</ModalBody>
-                <ModalFooter>
-                  <Button type="button" isDisabled={pending} onPress={close} color="success">
-                    Tidak
-                  </Button>
-                  <Button type="submit" isLoading={pending} color="danger" variant="ghost">
-                    Ya
-                  </Button>
-                </ModalFooter>
-              </form>
+              <ModalBody>Yakin mau hapus game {game?.name}?</ModalBody>
+              <ModalFooter>
+                <Button type="button" isDisabled={pending} onPress={close} color="success">
+                  Tidak
+                </Button>
+                <Button
+                  type="submit"
+                  isLoading={pending}
+                  onPress={() => hapus(game?.id as string)}
+                  color="danger"
+                  variant="ghost"
+                >
+                  Ya
+                </Button>
+              </ModalFooter>
             </>
           )}
         </ModalContent>
