@@ -1,11 +1,13 @@
 import { FC } from "react";
 
-import { Redirector } from "@/components/auth/redirector";
+import { Spinner } from "@heroui/spinner";
+import { AuthenticateWithRedirectCallback } from "@clerk/nextjs";
 
 const Page: FC = () => {
   return (
     <div className="grid size-full place-items-center">
-      <Redirector />
+      <Spinner size="lg" />
+      <AuthenticateWithRedirectCallback />
     </div>
   );
 };
