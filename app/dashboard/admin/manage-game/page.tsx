@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 import { PrismaClient } from "@prisma/client";
 
 import { Game } from "@/components/dashboard/manage-game/game";
-import { DashboardSection } from "@/components/dashboard/dashboard-section";
+import { DashboardLayout } from "@/layouts/dashboard";
 
 export const metadata: Metadata = {
   title: "Manage Game - Erika Store",
@@ -21,9 +21,9 @@ const Page: FC = async () => {
   });
 
   return (
-    <DashboardSection name="Manage Game">
+    <DashboardLayout name="Manage Game">
       <Game games={games} />
-    </DashboardSection>
+    </DashboardLayout>
   );
 };
 
