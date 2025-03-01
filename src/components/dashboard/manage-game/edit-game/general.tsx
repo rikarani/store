@@ -15,7 +15,7 @@ import { addToast } from "@heroui/toast";
 import { updateGame } from "@/actions/game/update";
 import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { updateGameSchema, type UpdateGameSchema } from "@/schema/game/general";
+import { updateGameSchema, type UpdateGameSchema } from "@/schema/game/update";
 
 type Props = {
   game: Game | null;

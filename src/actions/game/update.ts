@@ -6,7 +6,7 @@ import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
-import { UpdateGameSchema as Game, updateGameSchema as schema } from "@/schema/game/general";
+import { UpdateGameSchema as Game, updateGameSchema as schema } from "@/schema/game/update";
 
 export async function updateGame(game: Game): Promise<Response> {
   const { id, ...data } = schema.parse(game);
