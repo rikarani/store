@@ -36,9 +36,9 @@ export const Games: FC = async () => {
 
   return (
     <>
-      <div className="w-4/5 px-6">
+      <div className="px-6">
         <h2 className="text-xl font-bold">Game Populer</h2>
-        <div className="mt-4 grid grid-cols-3 gap-4 sm:grid-cols-5">
+        <div className="mt-4 grid grid-cols-3 gap-4 sm:grid-cols-4 md:grid-cols-5">
           {games.map((game) => (
             <Link
               key={game.name}
@@ -56,9 +56,9 @@ export const Games: FC = async () => {
         </div>
       </div>
       <Divider orientation="vertical" className="h-auto" />
-      <div className="w-1/5 px-6">
+      <div className="px-6">
         <h2 className="text-xl font-bold">Lainnya</h2>
-        <div className="mt-4 grid grid-cols-3 gap-4">
+        <div className="mt-4 grid grid-cols-3 gap-4 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-2">
           {other.map((game) => (
             <Link
               key={game.name}
