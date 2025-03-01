@@ -1,25 +1,30 @@
 "use client";
 
 import { FC } from "react";
-import { Game } from "@prisma/client";
 
 import { Tab, Tabs } from "@heroui/tabs";
 
+import { General } from "./edit-game/general";
+import { Field } from "./edit-game/field";
+
+import type { EnhancedGame } from "@/types";
+import { Server } from "./edit-game/server";
+
 type Props = {
-  game: Game | null;
+  game: EnhancedGame | null;
 };
 
 export const EditGame: FC<Props> = ({ game }) => {
   return (
-    <Tabs aria-label="Edit Game" size="sm">
+    <Tabs aria-label="Edit Game" fullWidth>
       <Tab key="general" title="General" className="w-full">
-        <h1>general</h1>
+        <General game={game} />
       </Tab>
       <Tab key="field" title="Field" className="w-full">
-        <h1>field</h1>
+        <Field game={game} />
       </Tab>
       <Tab key="server" title="Server" className="w-full" isDisabled={!game?.has_server}>
-        <h1>muncul kalo game ada pilihan server</h1>
+        <Server />
       </Tab>
     </Tabs>
   );
