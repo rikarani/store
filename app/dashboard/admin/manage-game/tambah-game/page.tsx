@@ -4,8 +4,8 @@ import { FC, Suspense } from "react";
 import { PrismaClient, Game } from "@prisma/client";
 
 import { Loading } from "@/components/ui/loading";
-import { AddGame } from "@/components/dashboard/manage-game/add-game";
-import { DashboardSection } from "@/components/dashboard/dashboard-section";
+import { AddGameTable } from "@/components/dashboard/manage-game/add-game";
+import { DashboardLayout } from "@/layouts/dashboard";
 import { type GameFromAPI } from "@/types/game";
 
 export const metadata: Metadata = {
@@ -32,11 +32,11 @@ const Page: FC = async () => {
   const games = apiGame.filter((game) => !dbGame.find((g) => g.code === game.code));
 
   return (
-    <DashboardSection name="Tambah Game Baru">
+    <DashboardLayout name="Tambah Game Baru">
       <Suspense fallback={<Loading />}>
-        <AddGame games={games} />
+        <AddGameTable games={games} />
       </Suspense>
-    </DashboardSection>
+    </DashboardLayout>
   );
 };
 
