@@ -4,7 +4,7 @@ import { FC, Suspense } from "react";
 import { PrismaClient, Game } from "@prisma/client";
 
 import { Loading } from "@/components/ui/loading";
-import { AddGame } from "@/components/dashboard/manage-game/add-game";
+import { AddGameTable } from "@/components/dashboard/manage-game/add-game";
 import { DashboardLayout } from "@/layouts/dashboard";
 import { type GameFromAPI } from "@/types/game";
 
@@ -34,7 +34,7 @@ const Page: FC = async () => {
   return (
     <DashboardLayout name="Tambah Game Baru">
       <Suspense fallback={<Loading />}>
-        <AddGame games={games} />
+        <AddGameTable games={games} />
       </Suspense>
     </DashboardLayout>
   );
