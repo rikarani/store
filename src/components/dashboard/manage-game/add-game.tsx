@@ -3,29 +3,23 @@
 import { FC, useState, useMemo } from "react";
 
 import { Icon } from "@iconify-icon/react";
-import { addGame } from "@/actions/game/add";
+
 import type { GameFromAPI } from "@/types/game";
 
 import { Chip } from "@heroui/chip";
-import { Button } from "@heroui/button";
-import { addToast } from "@heroui/toast";
 import { Table, TableHeader, TableBody, TableRow, TableColumn, TableCell } from "@heroui/table";
-import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, useDisclosure } from "@heroui/modal";
 
 import { Search } from "./search";
 import { Pagination } from "./pagination";
+import { AddGame } from "@/components/dashboard/modal/game/add";
 
 type Props = {
   games: GameFromAPI[];
 };
 
-export const AddGame: FC<Props> = ({ games }) => {
+export const AddGameTable: FC<Props> = ({ games }) => {
   const [page, setPage] = useState<number>(1);
   const [search, setSearch] = useState<string>("");
-  const [pending, setPending] = useState<boolean>(false);
-  const [game, setGame] = useState<Partial<GameFromAPI> | undefined>(undefined);
-
-  const { isOpen, onOpen, onOpenChange, onClose } = useDisclosure();
 
   const filteredGames = useMemo(() => {
     if (!search) {
@@ -48,27 +42,6 @@ export const AddGame: FC<Props> = ({ games }) => {
   function onSearch(value: string) {
     setSearch(value);
     setPage(1);
-  }
-
-  function onPress(game: GameFromAPI) {
-    setGame(game);
-    onOpen();
-  }
-
-  async function tambah(game: Partial<GameFromAPI>) {
-    setPending(true);
-
-    const response = await addGame(game);
-
-    if (response.success) {
-      setPending(false);
-      addToast({ title: "Berhasil", description: response.message, color: "success" });
-      onClose();
-    } else {
-      setPending(false);
-      addToast({ title: "Gagal", description: response.message, color: "danger" });
-      onClose();
-    }
   }
 
   return (
@@ -110,39 +83,12 @@ export const AddGame: FC<Props> = ({ games }) => {
                 </Chip>
               </TableCell>
               <TableCell>
-                <Button isDisabled={!game.active} isIconOnly color="success" onPress={() => onPress(game)}>
-                  <Icon icon="lucide:plus" />
-                </Button>
+                <AddGame game={game} />
               </TableCell>
             </TableRow>
           )}
         </TableBody>
       </Table>
-      <Modal
-        placement="center"
-        hideCloseButton
-        isOpen={isOpen}
-        isDismissable={!pending}
-        isKeyboardDismissDisabled={pending}
-        onOpenChange={onOpenChange}
-      >
-        <ModalContent>
-          {(close) => (
-            <>
-              <ModalHeader>Konfirmasi Tambah</ModalHeader>
-              <ModalBody>Yakin mau nambah game {game?.name}?</ModalBody>
-              <ModalFooter>
-                <Button onPress={close} isDisabled={pending} color="danger" variant="ghost">
-                  Tidak
-                </Button>
-                <Button isLoading={pending} type="submit" color="success" onPress={() => tambah(game as GameFromAPI)}>
-                  Ya
-                </Button>
-              </ModalFooter>
-            </>
-          )}
-        </ModalContent>
-      </Modal>
     </>
   );
 };
