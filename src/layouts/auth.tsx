@@ -7,7 +7,7 @@ type Props = {
   subtitle: string;
 };
 
-export const AuthSection: FC<PropsWithChildren<Props>> = ({ title, subtitle, children }) => {
+export const AuthLayout: FC<PropsWithChildren<Props>> = ({ title, subtitle, children }) => {
   return (
     <div className="w-full max-w-screen-md px-6 py-4">
       <div className="w-full">

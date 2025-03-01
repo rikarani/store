@@ -1,7 +1,7 @@
 import { FC } from "react";
 import type { Metadata } from "next";
 
-import { DashboardSection } from "@/components/dashboard/dashboard-section";
+import { DashboardLayout } from "@/layouts/dashboard";
 
 export const metadata: Metadata = {
   title: "Manage Member - Erika Store",
@@ -10,9 +10,9 @@ export const metadata: Metadata = {
 
 const Page: FC = () => {
   return (
-    <DashboardSection name="Manage Member">
+    <DashboardLayout name="Manage Member">
       <h1>wip</h1>
-    </DashboardSection>
+    </DashboardLayout>
   );
 };
 

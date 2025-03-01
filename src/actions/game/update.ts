@@ -1,14 +1,14 @@
 "use server";
 
+import { Response } from "@/types";
 import { revalidatePath } from "next/cache";
 import { PrismaClient } from "@prisma/client";
-import { MutateGameState as State } from "@/types";
 
 const prisma = new PrismaClient();
 
-import { UpdateGameSchema as Game, updateGameSchema as schema } from "@/schema/game/general";
+import { UpdateGameSchema as Game, updateGameSchema as schema } from "@/schema/game/update";
 
-export async function updateGame(game: Game): Promise<State> {
+export async function updateGame(game: Game): Promise<Response> {
   const { id, ...data } = schema.parse(game);
 
   try {

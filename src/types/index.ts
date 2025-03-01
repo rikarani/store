@@ -1,1 +1,1 @@
-export type { MutateGameState } from "./game";
+export type { Response, GameFromAPI, EnhancedGame } from "./game";
