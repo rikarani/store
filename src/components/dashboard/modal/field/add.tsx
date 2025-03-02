@@ -85,7 +85,6 @@ export const AddField: FC<Props> = ({ gameId }) => {
                   {...f}
                   selectedKeys={[value]}
                   isRequired
-                  isLoading={formState.isSubmitting}
                   isDisabled={formState.isSubmitting}
                   label="Tipe"
                   description="tipe fieldnya nanti"
