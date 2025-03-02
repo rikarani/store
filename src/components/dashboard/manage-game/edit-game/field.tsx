@@ -8,6 +8,8 @@ import { Table, TableHeader, TableBody, TableColumn, TableRow, TableCell } from 
 import { Icon } from "@iconify-icon/react";
 import type { EnhancedGame } from "@/types";
 import { AddField } from "../../modal/field/add";
+import { DeleteField } from "../../modal/field/delete";
+import { Chip } from "@heroui/chip";
 
 type Props = {
   game: EnhancedGame | null;
@@ -27,14 +29,16 @@ export const Field: FC<Props> = ({ game }) => {
           <TableRow key={field.id}>
             <TableCell key="name">{field.name}</TableCell>
             <TableCell key="label">{field.label}</TableCell>
-            <TableCell key="type">{field.type}</TableCell>
+            <TableCell key="type">
+              <Chip className="capitalize" color={field.type === "text" ? "default" : "secondary"}>
+                {field.type}
+              </Chip>
+            </TableCell>
             <TableCell key="action" className="space-y-3 lg:space-x-3 lg:space-y-0">
               <Button isIconOnly color="warning">
                 <Icon icon="lucide:edit" className="text-base" />
               </Button>
-              <Button isIconOnly color="danger">
-                <Icon icon="lucide:trash" className="text-base" />
-              </Button>
+              <DeleteField fieldId={field.id} />
             </TableCell>
           </TableRow>
         ))}
