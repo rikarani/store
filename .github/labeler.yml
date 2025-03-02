@@ -1,0 +1,31 @@
+"🏗️ App Structure":
+  - changed-files:
+      - any-glob-to-any-file: app/**
+
+"🛢️ Database Schema":
+  - changed-files:
+      - any-glob-to-any-file: prisma/**
+
+"⚡ Server Action":
+  - changed-files:
+      - any-glob-to-any-file: src/actions/**
+
+"🧩 Component":
+  - changed-files:
+      - any-glob-to-any-file: src/components/**
+
+"🎨 Layout":
+  - changed-files:
+      - any-glob-to-any-file: src/layouts/**
+
+"🌐 Provider":
+  - changed-files:
+      - any-glob-to-any-file: src/providers/**
+
+"✅ Zod Schema":
+  - changed-files:
+      - any-glob-to-any-file: src/schemas/**
+
+"🔠 Types":
+  - changed-files:
+      - any-glob-to-any-file: src/types/**
