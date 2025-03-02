@@ -4,5 +4,30 @@ updates:
     directory: "/"
     schedule:
       interval: "weekly"
-    ignore:
-      - dependency-name: "tailwindcss"
+    target-branch: "canary"
+    labels:
+      - "📦 Dependency"
+    reviewers:
+      - "rikarani"
+    assignees:
+      - "rikarani"
+    groups:
+      core:
+        patterns:
+          - "next"
+          - "react"
+          - "react-dom"
+      clerk:
+        patterns:
+          - "@clerk/*"
+      form:
+        patterns:
+          - "@hookform/*"
+          - "react-hook-form"
+          - "zod"
+      prisma:
+        patterns:
+          - "@prisma/*"
+          - "prisma"
+      dev:
+        dependency-type: "development"
