@@ -97,7 +97,7 @@ export const AddField: FC<Props> = ({ gameId }) => {
           </ModalBody>
           <ModalFooter>
             <Button isLoading={formState.isSubmitting} color="primary" type="submit">
-              Simpan
+              Tambahkan
             </Button>
           </ModalFooter>
         </ModalContent>
