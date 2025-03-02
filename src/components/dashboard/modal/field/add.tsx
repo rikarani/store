@@ -4,16 +4,16 @@ import { FC } from "react";
 
 import { Icon } from "@iconify-icon/react";
 
+import { addField } from "@/actions/field/add";
 import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { addFieldSchema, type AddFieldSchema } from "@/schemas/field/add";
-import { addField } from "@/actions/field/add";
 
-import { Button } from "@heroui/button";
-import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, useDisclosure } from "@heroui/modal";
 import { Input } from "@heroui/input";
-import { Select, SelectItem } from "@heroui/select";
+import { Button } from "@heroui/button";
 import { addToast } from "@heroui/toast";
+import { Select, SelectItem } from "@heroui/select";
+import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, useDisclosure } from "@heroui/modal";
 
 type Props = {
   gameId: string;
